@@ -1,4 +1,15 @@
 import "~/styles/globals.css";
+import Link from "next/link";
+
+import {
+  ClerkProvider,
+  SignInButton,
+  SignUpButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from '@clerk/nextjs'
+import { dark } from '@clerk/themes'
 
 import { type Metadata } from "next";
 import { Geist } from "next/font/google";
@@ -20,10 +31,55 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${geist.variable}`}>
-      <body>
-        <TRPCReactProvider>{children}</TRPCReactProvider>
-      </body>
-    </html>
+    <ClerkProvider
+      appearance={{
+        baseTheme: dark,
+      }}
+    >
+      
+      <html lang="en" className={`${geist.variable}`}>
+        <body className="min-h-screen bg-black text-white">
+          <TRPCReactProvider> 
+            <header className=" backdrop-blur-sm bg-black/70 border-b border-gray-800 z-50">
+              <div className="max-w-7xl mx-auto flex justify-between items-center p-4 gap-4 h-16">
+                <div className="transition-transform hover:scale-105">
+                  <Link href={"/"}>
+                    <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-400 to-pink-600 text-transparent bg-clip-text hover:from-pink-600 hover:to-purple-400 transition-all duration-300">
+                      To Do
+                    </h1>
+                  </Link>
+                </div>
+                <div className="">
+                  <SignedOut>
+                    <div className="flex gap-2">
+                      <SignInButton mode="modal">
+                        <button className="px-4 py-2 rounded-lg bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 transition-all duration-300 text-white font-medium">
+                          Sign In
+                        </button>
+                      </SignInButton>
+                      <SignUpButton mode="modal">
+                        <button className="px-4 py-2 rounded-lg border border-gray-700 hover:bg-gray-800 transition-all duration-300 text-white font-medium">
+                          Sign Up
+                        </button>
+                      </SignUpButton>
+                    </div>
+                  </SignedOut>
+                  <SignedIn>
+                    <UserButton 
+                      appearance={{
+                        elements: {
+                          avatarBox: "w-10 h-10 rounded-lg hover:scale-105 transition-transform"
+                        }
+                      }}
+                    />
+                  </SignedIn>
+                </div>
+              </div>
+            </header>
+            {children}
+          </TRPCReactProvider>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }

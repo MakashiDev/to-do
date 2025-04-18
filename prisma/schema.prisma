@@ -10,11 +10,25 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-model Post {
+model ToDo {
     id        Int      @id @default(autoincrement())
     name      String
+    userId    String   // using clerk
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
+    items ToDoItem[]
     @@index([name])
+}
+
+model ToDoItem {
+    id        Int      @id @default(autoincrement())
+    todoId    Int      
+    name      String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    completed Boolean  @default(false)
+    @@index([name])
+
+    todo ToDo @relation(fields: [todoId], references: [id])
 }

@@ -21,12 +21,15 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@clerk/nextjs": "^6.15.0",
+    "@clerk/themes": "^2.2.34",
     "@prisma/client": "^6.5.0",
     "@t3-oss/env-nextjs": "^0.12.0",
     "@tanstack/react-query": "^5.69.0",
     "@trpc/client": "^11.0.0",
     "@trpc/react-query": "^11.0.0",
     "@trpc/server": "^11.0.0",
+    "framer-motion": "^12.7.4",
     "next": "^15.2.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
