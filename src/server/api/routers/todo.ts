@@ -8,6 +8,9 @@ export const ToDoRouter = createTRPCRouter({
       const todo = await ctx.db.toDo.findUnique({
         where: {
           id: parseInt(input.id),
+        },
+        include: {
+          items: true,
         },  
       });
       return todo;
@@ -41,6 +44,9 @@ export const ToDoRouter = createTRPCRouter({
     const todos = await ctx.db.toDo.findMany({
       where: {
         userId: user.id,
+      },
+      include: {
+        items: true,
       }
     })
     return todos || [];

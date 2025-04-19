@@ -1,6 +1,6 @@
 'use client'
 import { api } from '~/trpc/react';
-import CreateModal from '../_components/create-modal';
+import CreateModal from '../_components/create-list-modal';
 import { useState } from 'react';
 import { useAuth } from '@clerk/nextjs';
 import Router from 'next/router';
